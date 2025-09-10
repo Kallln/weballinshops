@@ -35,12 +35,12 @@ Link pws: https://ahmad-haikal41-weballinshops.pbp.cs.ui.ac.id/
 2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
 ![bagan](image-3.png)
 Penjelasan:
- 1) Pengguna mengakses url suatu web, hal ini akan melakukan request pada URLS. 
- 2) URLS akan meneruskan request dari pengguna, ke views
- 3) Views.py akan memroses request dari pengguna dan menampilkan hasil requestnya berupa html. Selain itu, views.py juga dapat mengakses models untuk memenuhi request dari pengguna.
- 4) models.py secara sederhana dapat dikatakan sebagai database tempat ditentukannya struktur suatu aplikasi.
- 5) html, tampilan yang nantinya akan dilihat oleh pengguna
- refrensi: https://medium.com/@sundaram.2911/an-introduction-to-django-b17b51e3a7dc
+     1) Pengguna mengakses url suatu web, hal ini akan melakukan request pada URLS. 
+     2) URLS akan meneruskan request dari pengguna, ke views
+     3) Views.py akan memroses request dari pengguna dan menampilkan hasil requestnya berupa html. Selain itu, views.py juga dapat mengakses models untuk memenuhi request dari pengguna.
+     4) models.py secara sederhana dapat dikatakan sebagai database tempat ditentukannya struktur suatu aplikasi.
+     5) html, tampilan yang nantinya akan dilihat oleh pengguna
+     refrensi: https://medium.com/@sundaram.2911/an-introduction-to-django-b17b51e3a7dc
 
 3. Jelaskan peran settings.py dalam proyek Django!
 Peran settings.py adalah sebagai tempat utama mengatur proyek django. Di dalam file tersebut, kita mengatur database, informasi dasar mengenai konfigurasi proyek seperti hosts yang dapat menjalankan proyek django
