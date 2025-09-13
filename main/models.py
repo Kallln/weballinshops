@@ -20,16 +20,7 @@ class Product(models.Model):
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='update')
     is_featured = models.BooleanField(default=False)
 
-    news_views = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
         
     def __str__(self):
         return self.title
-    
-    @property
-    def is_news_hot(self):
-        return self.news_views > 20
-        
-    def increment_views(self):
-        self.news_views += 1
-        self.save()
