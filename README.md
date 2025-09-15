@@ -53,3 +53,17 @@ Memiliki dokumentasi yang jelas, komunitasnya luas, pola MTV yang ada di dalamny
 
 6. Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?
 tutorial 1 memiliki tutorial yang sangat jelas sehingga mudah untuk diikuti, dan penjelasan tiap langkahnya memberi pemahaman yang baik mengenai Django.
+
+TUGAS 3
+1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform? 
+Data delivery menjadi penting karena berguna untuk memberikan informasi yang tepat mengenai data yang kita buat supaya akurat sesuai dengan kriteria yang kita inginkan, memberikan kemudahan mengakses data ketika kita membutuhkannya, dan memudahkan untuk mendeteksi saat terjadi error.
+
+2. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+
+JSON lebih populer dibandingkan XML karena JSON memberika fleksibilitas yang lebih baik dari XML, lebih compact, dan lebih mudah untuk ditulis dan dibaca oleh pengembang.
+
+3. Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
+Fungsi dari method .is_valid() pada objek form adalah untuk memvalidasi data, dan me-return boolean saat datanya valid. Method ini penting supaya form yang dibuat sesuai dengan aturan di dalam forms.
+
+4. Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+csrf_token dibutuhkan untuk melindungi platform yang kita buat dari serangan CSRF. Jika tidak terdapat csrf_token akan menyebabkan platform kita menjadi lebih rentan dari serangan CSRF. Penyerang akan mengecoh user atau browser dengan membuat HTTP request kepada web yang rentan pada CSRF melalui malicious site, karena kerentanan tersebut penyerang akan mendapat kredensial pengguna lainnya yang seharusnya tidak terjadi jika terdapat csrf.
