@@ -19,10 +19,10 @@ Link pws: https://ahmad-haikal41-weballinshops.pbp.cs.ui.ac.id/
         is_featured = models.BooleanField(default=False)
     Lalu, saya membuat dan melakukan migrasi karena untuk mengupdate perubahan pada model.
     5) Pada aplikasi main, di file views.py saya membuat fungsi yang nantinya ditampilkan ke template html
-    ![views.py image](https://drive.google.com/file/d/1-X7BrnZG__Fv0vQOLGgcpzl_5nCR5FIz/view)
-    ![html image](https://drive.google.com/file/d/1JAW3It7bD8_Z9HjRuMM7ybqAzHxN0iYA/view)
+    ![views.py image](https://drive.google.com/file/d/1-X7BrnZG__Fv0vQOLGgcpzl_5nCR5FIz/view?usp=sharing)
+    ![html image](https://drive.google.com/file/d/1JAW3It7bD8_Z9HjRuMM7ybqAzHxN0iYA/view?usp=sharing)
     6) Saya membuat routing pada urls.py dalam aplikasi main, seperti berikut
-    ![urls.py image](https://drive.google.com/file/d/1rkq-2MLXXlmHPxYAD0bJTbnbAH3axgxF/view) sehingga nantinya akan memetakan fungsi yang dibuat ke views.py
+    ![urls.py image](https://drive.google.com/file/d/1rkq-2MLXXlmHPxYAD0bJTbnbAH3axgxF/view?usp=sharing) sehingga nantinya akan memetakan fungsi yang dibuat ke views.py
     7) Saya melakukan deployment ke pws dengan melakukan beberapa perintah berikut:
         git remote add pws <link-pws>
         git branch -M master
@@ -33,7 +33,7 @@ Link pws: https://ahmad-haikal41-weballinshops.pbp.cs.ui.ac.id/
 
 
 2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
-![bagan](https://drive.google.com/file/d/1b9EqrhcNlfw85E5f-YzLo_EDmnvrMRaL/view)
+![bagan](https://drive.google.com/file/d/1b9EqrhcNlfw85E5f-YzLo_EDmnvrMRaL/view?usp=sharing)
 Penjelasan:
      1) Pengguna mengakses url suatu web, hal ini akan melakukan request pada URLS. 
      2) URLS akan meneruskan request dari pengguna, ke views
@@ -69,7 +69,7 @@ csrf_token dibutuhkan untuk melindungi platform yang kita buat dari serangan CSR
 
 5. Step-step pengerjaan Tugas 2:
     1) Sebelum membuat 4 fungsi views, Buat forms.py terlebih dahulu yang meng-import Product dari models, dan ModelForm dari Django, lalu buat form baru dengan nama ProductForm. Di dalamnya, buat variabel Model = Product dan fields yang disesuaikan dengan atribut-atribut yang ada di model Product. Berpindah ke views, dari django.shortcuts import render, redirect, get_object_or_404, import Product dari models dan ProductForm dari forms. Kemudian, buatlah 4 fungsi views, sebagai berikut:
-    ![alt text](https://drive.google.com/file/d/1230ACSsus-E1nGrC1nWF57xxF8yPpnjF/view)
+    ![alt text](https://drive.google.com/file/d/1230ACSsus-E1nGrC1nWF57xxF8yPpnjF/view?usp=sharing)
     
     2) Lakukan Routing ke tiap fungsi yang sudah dibuat dengan mengimportnya fungsi-fungsi tersebut ke views.  Tambahkan 4 path pada urlpaterns di views, seperti berikut: 
     		path('xml/', show_xml, name='show_xml'),
@@ -104,18 +104,18 @@ csrf_token dibutuhkan untuk melindungi platform yang kita buat dari serangan CSR
     Kode tersebut melakukan iterasi pada semua produk yang ada di dalam product_list, lalu memunculkan semua produk dengan judul, kategorinya, dan lain-lain. Tombol “Detail” akan men-direct user ke detail produk yang dipilihnya.
 
     4) Halaman form untuk menambahkan objek pada aplikasi sebelumnya dilakukan di file baru dalam direktori yang sama dengan main.html, bernama create_product.html. Halaman ini lah yang akan dibuka ketika user mengklik tombol “Add”.
-        ![alt text](https://drive.google.com/file/d/1s9AyQEtz64J_XvPG2zSeY41pdwHP8LPD/view)
+        ![alt text](https://drive.google.com/file/d/1s9AyQEtz64J_XvPG2zSeY41pdwHP8LPD/view?usp=sharing)
     5) Halaman yang menampilkan detail setiap data produk yang ada, file product_detail.html ada di direktori yang sama dengan create_product.html
-    ![alt text](https://drive.google.com/file/d/1TXiGre-2RcbAX60OV56K09a0uE8MB2Nl/view)
+    ![alt text](https://drive.google.com/file/d/1TXiGre-2RcbAX60OV56K09a0uE8MB2Nl/view?usp=sharing)
 
     6. Tutorial 2 sangat membantu dalam mengerjakan tutorial 2, penjelasannya juga mudah dipahami
 
 Postman
 - XML
-![XML](https://drive.google.com/file/d/1wsw2twV4qQetoTk-9QkSuNMejph6NtrO/view)
+![XML](https://drive.google.com/file/d/1wsw2twV4qQetoTk-9QkSuNMejph6NtrO/view?usp=sharing)
 - JSON
-![JSON](https://drive.google.com/file/d/161Ud3-F6G8sNfKrbLEHohtV85iTU_teD/view)
+![JSON](https://drive.google.com/file/d/161Ud3-F6G8sNfKrbLEHohtV85iTU_teD/view?usp=sharing)
 - XML by ID
-![XML by ID](https://drive.google.com/file/d/1WvVHgCQirORgF6HTWPUJ2vwGvq5A5ljM/view)
+![XML by ID](https://drive.google.com/file/d/1WvVHgCQirORgF6HTWPUJ2vwGvq5A5ljM/view?usp=sharing)
 - JSON by ID
-![JSON by ID](https://drive.google.com/file/d/1V3ad9V7NhLKP2QLmt3u_MVR6gdKxMcIW/view)
+![JSON by ID](https://drive.google.com/file/d/1V3ad9V7NhLKP2QLmt3u_MVR6gdKxMcIW/view?usp=sharing)
