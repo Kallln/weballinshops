@@ -119,3 +119,22 @@ Postman
 ![XML by ID](https://drive.google.com/uc?export=view&id=1WvVHgCQirORgF6HTWPUJ2vwGvq5A5ljM)  
 - JSON by ID
 ![JSON by ID](https://drive.google.com/uc?export=view&id=1V3ad9V7NhLKP2QLmt3u_MVR6gdKxMcIW)
+
+Tugas 4
+1. Apa itu Django AuthenticationForm? Jelaskan juga kelebihan dan kekurangannya.
+Sebuah form class yang disediakan Django dan berguna untuk autentikasi user supaya dapat melakukan proses login. 
+    Kelebihan:
+    - built-in dan dapat langsung dipakai
+    - terintegrasi langsung dengan auth yang ada dalam Django
+    - memiliki validasi keamanan bawaan, yaitu memeriksa kecocokan username dengan password, mengetahui aktif tidaknya suatu akun, dan memberikan pesan error saat login tidak berhasil dilakukan.
+    - mudah untuk dikostumisasi
+    Kekurangan:
+    - terbatas pada username dan password
+    - tidak ada keamanan tambahan, seperti captcha, 2FA. Hal-hal tersebut haruus ditambahkan sendiri.
+2. Apa perbedaan antara autentikasi dan otorisasi? Bagaiamana Django mengimplementasikan kedua konsep tersebut?
+Autentikasi memeriksa user login sebagai siapa, sedangkan otorisasi memberikan akses tertentu tergantung pada user yang login. nanti lanjutin....
+3.  Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?
+Kelebihannya: 
+    1) Pengguna tidak perlu melakukan login berulang kali ketika mengakses halaman yang berbeda dari aplikasi web yang sama
+    2) 
+4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
