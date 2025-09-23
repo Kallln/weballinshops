@@ -131,10 +131,42 @@ Sebuah form class yang disediakan Django dan berguna untuk autentikasi user supa
     Kekurangan:
     - terbatas pada username dan password
     - tidak ada keamanan tambahan, seperti captcha, 2FA. Hal-hal tersebut haruus ditambahkan sendiri.
+
 2. Apa perbedaan antara autentikasi dan otorisasi? Bagaiamana Django mengimplementasikan kedua konsep tersebut?
-Autentikasi memeriksa user login sebagai siapa, sedangkan otorisasi memberikan akses tertentu tergantung pada user yang login. nanti lanjutin....
+Autentikasi memeriksa user login sebagai siapa, sedangkan otorisasi memberikan akses tertentu tergantung pada user yang login. Django menyediakan Authentication Framework untuk memverifikasi user. Selain itu, terdapat model user bawaan, login & logout, dan form & view. Django punya sistem permission yang melekat pada modelnya sehingga bisa memeriksa akses apa saja yang boleh dilakukan suatu user.
+
 3.  Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?
-Kelebihannya: 
+Kelebihan Cookie: 
     1) Pengguna tidak perlu melakukan login berulang kali ketika mengakses halaman yang berbeda dari aplikasi web yang sama
-    2) 
+    2) Tidak membebani server
+    3) Mudah untuk digunakan, hanya perlu melakukan set header Set-Cookie dan browser otomatis mengirimkannya pada request selanjutnya.
+Kekurangan Cookie:
+    1) Kapasitas yang terbatas
+    2) Keamanannya yang rentan sehingga mudah dicuri
+    3) tidak cocok untuk menyimpan data yang sensitif
+
+Kelebihan Session:
+    1) Lebih aman, karena data yang sensitif tidak diterima oleh client
+    2) Memiliki kapasitas yang tidak terbatas
+    3) Dapat dikontrol oleh server
+    4) Sulit untuk dimanipulasi client
+Kekurangan Session:
+    1) Beban server yang lebih berat
+    2) Ketergantungan pada mekanisme Session
+    3) Butuh penyimpanan tambahan
+
 4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
+Secara default tidak otomatis aman, ada beberapa risiko-risiko yang perlu diperhatikan, seperti pencurian cookie, XSS, dan CSRF. Django menangani hal-hal tersebut dengan HttpOnly Flag, Secure Flag, SameSite Attribute, CSRF protection.
+
+5. Berikut ini cara saya mengimplementasi checklist di atas:
+    1) Pada views.py, saya membuat fungsi register, login, logout, dan saya lakukan routing pada tiap-tiap fungsi tersebut. Setelahnya di dalam main/templates, saya membuat register.html yang akan menampilkan pembuatan akun, login.html untuk login user, dan menambahkan tombol logout di main.html. Kemudian supaya halaman main dan detail hanya bisa diakses oleh user yang sudah login, saya tambahakan decorator login_required di fungsi show_main dan show_product.
+     
+    2) Saya membuat 2 akun yang berbeda dan membuat 3 produk baru.
+    ![Akun 1](https://drive.google.com/uc?export=view&id=1qKspyHLqKw9u8ficNCVOVkEN3HN0eA0a)
+    ![Akun 2](https://drive.google.com/uc?export=view&id=14e8erx8cA6qa54dftqkWONoWQk0HCkAH)
+
+    3) pada Models.py import User, dan tambahkan User di model Product. Kemudian makemigrations dan migrate. Kemudian di fungsi create_product tambahakan request.user pada product_entry  dan show_main tambahkan filter produk yang disesuaikan dengan user yang login. Tambahkan juga tombol filter di main.html, lalu product.user.username di product_detail.html
+
+    4) Pada main.html tambahkan kode berikut:
+        <h5>Sesi terakhir login: {{ last_login }}</h5>
+        <h5>User yang sedang login: {{ user }}</h5>
