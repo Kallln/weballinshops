@@ -170,3 +170,26 @@ Secara default tidak otomatis aman, ada beberapa risiko-risiko yang perlu diperh
     4) Pada main.html tambahkan kode berikut:
         <h5>Sesi terakhir login: {{ last_login }}</h5>
         <h5>User yang sedang login: {{ user }}</h5>
+
+Tugas 5
+1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+    Urutannya sebagai berikut:
+    1) inline styles, contohnya <h1 style="color: pink;"> (Highest priority, override selector lainnya)
+    2) Id selectors, contohnya #navbar dengan weight 1-0-0 (Second highest priority)
+    3) Classes, attribute selectors and pseudo-classes. Contohnya .test, [type="text"], :hover dengan weight 0-1-0 (Third highest priority)
+    4) Elements and pseudo-elements, contohnya h1, ::before, ::after dengan weight 0-0-1 (Low priority)
+    5) Universal selector and :where(), weight 0-0-0 (no priority)
+2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
+Karena memberikan konsistenitas, pengalaman penggunaan yang dapat dinikmati oleh user, dan biaya lebih murh dibanding membuat versi tiap perangkat yang berbeda. Contoh responsive: medium. youtube. Alasannya bisa dipakai semua perangkat dengan nyaman. Contoh ysng belum: web-web pemerintah yang lama. Alasannya karena dibuat saat penggunaan lintas perangkat belum diprioritaskan.
+3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+    - Padding: mengosongkan area di sekitar konten (transparan)
+    - Border: garis tepian yang membungkus konten dan padding-nya
+    - Margin: mengosongkan area di sekitar border (transparan)
+    Untuk implementasinya menggunakan px, dan jika ingin sisi tertentu spesifik right, left, bottom, top.
+4. Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+- Flexbox merupakan metode layouting satu dimensi dan berbasis pada content (item) itu sendiri yang dapat dikatakan sebagai item terkecil dari layout. Bagus untuk perataan tiap elemen, yaitu memposisikan elemen yang lebih kecil  atau detail.
+- Grid adalah memodelkan layout sebagai baris dan kolom (row and column) sehingga dalam pembuatan layout nya kita baca sebagai dua dimensi, yaitu row (kiri-kanan) dan column (atas-bawah). Digunakan untuk mengatur gambar yang besar dan untuk layout yang dua dimensi.
+5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+    1) Menambahkan fungsi di views, lakukan routing di urls.py, dan tambahkan pada main.html
+    2) Tambahkan cdn tailwind di base.html, load static di tiap file html di main/templates dan buat card_product, buat folder static di root, lalu buat css/global.css dan image/no_image.png. Selain itu, buat navbar.html di root/templates.
+    Berikan style di global.css (ini opsional), dan di tiap-tiap file-file html yang ada dalam main/templates
