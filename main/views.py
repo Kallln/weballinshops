@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from main.forms import ProductForm
 from main.models import Product
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
 from django.core import serializers
 from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -61,8 +61,20 @@ def show_xml(request):
 
 def show_json(request):
     product_list = Product.objects.all()
-    json_data = serializers.serialize("json", product_list)
-    return HttpResponse(json_data, content_type="application/json")
+    data = [
+        {
+            'id': str(product.id),
+            'name': product.name,
+            'description': product.description,
+            'category': product.category,
+            'thumbnail': product.thumbnail,
+            'created_at': product.created_at.isoformat() if product.created_at else None,
+            'is_featured': product.is_featured,
+            'user_id': product.user_id,
+        }
+        for product in product_list
+    ]
+    return JsonResponse(data, safe=False)
 
 def show_xml_by_id(request, product_id):
     try:
@@ -74,11 +86,21 @@ def show_xml_by_id(request, product_id):
    
 def show_json_by_id(request, product_id):
     try:
-        product_item = Product.objects.get(pk=product_id)
-        json_data = serializers.serialize("json", [product_item])
-        return HttpResponse(json_data, content_type="application/json")
+        product = Product.objects.select_related('user').get(pk=product_id)
+        data = {
+            'id': str(product.id),
+            'name': product.name,
+            'description': product.description,
+            'category': product.category,
+            'thumbnail': product.thumbnail,
+            'created_at': product.created_at.isoformat() if product.created_at else None,
+            'is_featured': product.is_featured,
+            'user_id': product.user_id,
+            'user_username': product.user.username if product.user_id else None,
+        }
+        return JsonResponse(data)
     except Product.DoesNotExist:
-        return HttpResponse(status=404)
+        return JsonResponse({'detail': 'Not found'}, status=404)
     
 def register(request):
     form = UserCreationForm()
