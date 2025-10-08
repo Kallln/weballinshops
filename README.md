@@ -193,3 +193,28 @@ Karena memberikan konsistenitas, pengalaman penggunaan yang dapat dinikmati oleh
     1) Menambahkan fungsi di views, lakukan routing di urls.py, dan tambahkan pada main.html
     2) Tambahkan cdn tailwind di base.html, load static di tiap file html di main/templates dan buat card_product, buat folder static di root, lalu buat css/global.css dan image/no_image.png. Selain itu, buat navbar.html di root/templates.
     Berikan style di global.css (ini opsional), dan di tiap-tiap file-file html yang ada dalam main/templates
+
+Tugas 6
+1.  Apa perbedaan antara synchronous request dan asynchronous request?
+- Synchronous menunggu response sebelum melakukan hal lain, sedangkan asynchronous bisa sambil melakukan task lain ketika menunggu response
+- Synchronous menstransfer semua html, css, dan js. Asynchronous, hanya data yang dibutuhkan (JSON)
+
+2.  Bagaimana AJAX bekerja di Django (alur request–response)?
+    1) suatu event terjadi (spt button diklik)
+    2) XMKHTTPRequest object dibuat javascript
+    3) XMKHTTPRequest object meminta request ke web server
+    4) server memroses request tersebut
+    5) server memberikan response ke halaman web
+    6) response dibaca javascript
+    7) perubahan pada halam diubah javascript
+
+3. Apa keuntungan menggunakan AJAX dibandingkan render biasa di Django?
+- UX yang baaik ke pengguna
+- pemisahan yang baik antara frontend, backshot, dan API
+- performa yang lebih baik
+
+4. Bagaimana cara memastikan keamanan saat menggunakan AJAX untuk fitur Login dan Register di Django?
+Dengan CSRF Protection, input validation, dan mensanitasi input dari pengguna. 
+
+5. Bagaimana AJAX mempengaruhi pengalaman pengguna (User Experience) pada website?
+Memberikan feedback langsung membuat interaksi terasa lebih cepat, pengalaman yang mulus dan interaktif, mengurangi waktu tunggu. 

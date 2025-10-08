@@ -46,7 +46,11 @@
         Rp {{ product.price }}.00
     </h3>
 
-    
+    <div class="flex gap-2 mt-2">
+      <button onclick="openEditModal('{{ product.pk }}')" class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">Edit</button>
+      <button onclick="openDeleteModal('{{ product.pk }}')" class="bg-red-500 text-white px-2 py-1 rounded text-xs">Delete</button>
+    </div>
+
 
     <!-- Action Buttons -->
     {% if user.is_authenticated and product.user == user %}
@@ -70,5 +74,5 @@
         </a>
       </div>
     {% endif %}
-  </div>
+  </>
 </article>

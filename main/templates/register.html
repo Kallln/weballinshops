@@ -39,7 +39,7 @@
         </div>
       {% endif %}
 
-      <form method="POST" action="" class="space-y-5">
+      <form id="registerForm" method="POST" action="" class="space-y-5">
         {% csrf_token %}
         
         <div>
@@ -115,4 +115,35 @@
     </div>
   </div>
 </div>
+
+<script>
+document.getElementById('registerForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    try {
+        const formData = new FormData(this);
+        const response = await fetch("{% url 'main:register' %}", {
+            method: "POST",
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            },
+            body: formData
+        });
+
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            showToast('Registration successful!', 'Account created successfully', 'success');
+            setTimeout(() => {
+                window.location.href = "{% url 'main:login' %}";
+            }, 1500);
+        } else {
+            showToast('Registration failed!', data.message || 'Please check your input', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('Registration failed!', 'An error occurred', 'error');
+    }
+});
+</script>
 {% endblock content %}
