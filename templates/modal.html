@@ -1,0 +1,349 @@
+<!-- Modal -->
+<div id="crudModal" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+  <div id="crudModalContent" class="bg-white rounded-lg shadow-lg w-5/6 sm:w-3/5 md:w-1/2 lg:w-2/5 xl:w-1/3 max-h-screen overflow-y-auto">
+    <!-- Modal header -->
+    <div class="flex items-center justify-between p-4 border-b">
+      <div>
+        <h3 class="text-xl font-semibold text-gray-900">
+          Create New News
+        </h3>
+        <p class="text-sm text-gray-600 mt-1">Sell your football product with We Ballin' Shops</p>
+      </div>
+      <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" onclick="hideModal()">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <div class="px-6 py-4 space-y-6 form-style">
+      <form id="productForm">
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+          <input type="text" id="name" name="name" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter product name" required>
+        </div>
+        <div class="mb-4">
+          <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea id="description" name="description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter product description" required></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+          <input type="number" id="price" name="price" step="0.01" min="0" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter product price" required/></div>
+        <div class="mb-4">
+          <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
+          <select id="category" name="category" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" required>
+            <option value="">Choose a category</option>
+            <option value="clothing">Clothing</option>
+            <option value="footwear">Footwear</option>
+            <option value="accessories">Accessories</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="thumbnail" class="block text-sm font-medium text-gray-700">Thumbnail URL</label>
+          <input type="url" id="thumbnail" name="thumbnail" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="https://example.com/image.jpg">
+        </div>
+        <div class="mb-4">
+          <div class="flex items-center">
+            <input id="is_featured" name="is_featured" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
+            <label for="is_featured" class="ml-2 text-sm font-medium text-gray-900">Featured Product</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Modal footer -->
+    <div class="flex flex-col sm:flex-row gap-4 p-6 border-t border-gray-200 rounded-b">
+      <button type="button" id="cancelButton" class="order-2 sm:order-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-50 transition-colors text-center" onclick="hideModal()">Cancel</button>
+      <button type="submit" id="submitProduct" form="productForm" class="order-1 sm:order-2 flex-1 bg-green-600 text-white px-6 py-3 rounded-md font-medium hover:bg-green-700 transition-colors">Publish Product</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Update (terpisah dari crudModal) -->
+<div id="updateModal" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+  <div id="updateModalContent" class="bg-white rounded-lg shadow-lg w-5/6 sm:w-3/5 md:w-1/2 lg:w-2/5 xl:w-1/3 max-h-screen overflow-y-auto">
+    <!-- Modal header -->
+    <div class="flex items-center justify-between p-4 border-b">
+      <div>
+        <h3 class="text-xl font-semibold text-gray-900">
+          Update Product
+        </h3>
+        <p class="text-sm text-gray-600 mt-1">Edit your football product with We Ballin' Shops</p>
+      </div>
+      <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" onclick="hideUpdateModal()">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <div class="px-6 py-4 space-y-6 form-style">
+      <form id="updateProductForm">
+        {% csrf_token %}
+        <input type="hidden" id="updateProductId" name="id">
+        <div class="mb-4">
+          <label for="updateName" class="block text-sm font-medium text-gray-700">Name</label>
+          <input type="text" id="updateName" name="name" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter product name" required>
+        </div>
+        <div class="mb-4">
+          <label for="updateDescription" class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea id="updateDescription" name="description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter product description" required></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="updatePrice" class="block text-sm font-medium text-gray-700">Price</label>
+          <input type="number" id="updatePrice" name="price" step="0.01" min="0" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Enter product price" required>
+        </div>
+        <div class="mb-4">
+          <label for="updateCategory" class="block text-sm font-medium text-gray-700">Category</label>
+          <select id="updateCategory" name="category" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" required>
+            <option value="">Choose a category</option>
+            <option value="clothing">Clothing</option>
+            <option value="footwear">Footwear</option>
+            <option value="accessories">Accessories</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="updateThumbnail" class="block text-sm font-medium text-gray-700">Thumbnail URL</label>
+          <input type="url" id="updateThumbnail" name="thumbnail" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="https://example.com/image.jpg">
+        </div>
+        <div class="mb-4">
+          <div class="flex items-center">
+            <input id="updateIsFeatured" name="is_featured" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
+            <label for="updateIsFeatured" class="ml-2 text-sm font-medium text-gray-900">Featured Product</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Modal footer -->
+    <div class="flex flex-col sm:flex-row gap-4 p-6 border-t border-gray-200 rounded-b">
+      <button type="button" id="cancelUpdateButton" class="order-2 sm:order-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-50 transition-colors text-center" onclick="hideUpdateModal()">Cancel</button>
+      <button type="submit" id="submitUpdate" form="updateProductForm" class="order-1 sm:order-2 flex-1 bg-blue-600 text-white px-6 py-3 rounded-md font-medium hover:bg-blue-700 transition-colors">Update Product</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Delete Confirmation -->
+<div id="deleteModal" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+  <div class="bg-white rounded-lg shadow-lg w-96 p-6 max-w-sm mx-4">
+    <div class="text-center">
+      <!-- Icon Warning -->
+      <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16c-.77.833.192 2.5 1.732 2.5z" />
+        </svg>
+      </div>
+      
+      <!-- Title -->
+      <h3 class="text-lg font-medium text-gray-900 mb-2">Delete Product</h3>
+      
+      <!-- Message -->
+      <p class="text-sm text-gray-500 mb-6">Are you sure you want to delete this product? This action cannot be undone.</p>
+      
+      <!-- Buttons -->
+      <div class="flex gap-3 justify-center">
+        <button 
+          type="button" 
+          class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors font-medium" 
+          onclick="hideDeleteModal()">
+          Cancel
+        </button>
+        <button 
+          type="button" 
+          id="confirmDeleteBtn" 
+          class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors font-medium">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function showModal() {
+      const modal = document.getElementById('crudModal');
+      const modalContent = document.getElementById('crudModalContent');
+
+      modal.classList.remove('hidden'); 
+      setTimeout(() => {
+        modalContent.classList.remove('opacity-0', 'scale-95');
+        modalContent.classList.add('opacity-100', 'scale-100');
+      }, 50); 
+  }
+
+  function hideModal() {
+      const modal = document.getElementById('crudModal');
+      const modalContent = document.getElementById('crudModalContent');
+
+      modalContent.classList.remove('opacity-100', 'scale-100');
+      modalContent.classList.add('opacity-0', 'scale-95');
+
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 150); 
+  }
+
+  async function addProductEntry() {
+    await fetch("{% url 'main:add_product_entry_ajax' %}", {
+      method: "POST",
+      body: new FormData(document.querySelector('#productForm')),
+    })
+
+    document.getElementById("productForm").reset();
+    hideModal();
+      
+    // Show toast notification
+    showToast('Product added successfully!', '', 'success');
+
+    // Dispatch custom event to notify main.html about new data
+    document.dispatchEvent(new CustomEvent('productAdded'));
+
+    return false;
+  }
+
+  document.getElementById("productForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    addProductEntry();
+  })
+  let selectedProductId = null;
+
+  // Show Update Modal
+  function showUpdateModal() {
+      const modal = document.getElementById('updateModal');
+      const modalContent = document.getElementById('updateModalContent');
+      modal.classList.remove('hidden'); 
+      setTimeout(() => {
+        modalContent.classList.remove('opacity-0', 'scale-95');
+        modalContent.classList.add('opacity-100', 'scale-100');
+      }, 50); 
+  }
+
+  // Hide Update Modal
+  function hideUpdateModal() {
+      const modal = document.getElementById('updateModal');
+      const modalContent = document.getElementById('updateModalContent');
+      modalContent.classList.remove('opacity-100', 'scale-100');
+      modalContent.classList.add('opacity-0', 'scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 150); 
+  }
+
+  // Show Delete Modal
+  function showDeleteModal() {
+      document.getElementById('deleteModal').classList.remove('hidden');
+  }
+
+  // Hide Delete Modal
+  function hideDeleteModal() {
+      document.getElementById('deleteModal').classList.add('hidden');
+  }
+
+  // Open Delete Modal
+  function openDeleteModal(productId) {
+      selectedProductId = productId;
+      showDeleteModal(); // Gunakan showDeleteModal() instead of langsung remove class
+  }
+
+
+  // Event Listeners
+  document.getElementById("confirmDeleteBtn").addEventListener("click", function() {
+    deleteProductEntry();
+  });
+
+  // Open Edit Modal
+  function openEditModal(productId) {
+      selectedProductId = productId;
+      // Perbaiki URL - buat URL secara manual
+      fetch(`/get-product-detail/${productId}/`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('updateProductId').value = data.id;
+          document.getElementById('updateName').value = data.name;
+          document.getElementById('updateDescription').value = data.description;
+          document.getElementById('updatePrice').value = data.price;
+          document.getElementById('updateCategory').value = data.category;
+          document.getElementById('updateThumbnail').value = data.thumbnail || '';
+          document.getElementById('updateIsFeatured').checked = data.is_featured || false;
+          showUpdateModal();
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          showToast('Failed to load product details', '', 'error');
+        });
+  }
+
+  // Update Product Entry
+  async function updateProductEntry() {
+    try {
+        // Perbaiki URL - buat URL secara manual
+        const response = await fetch(`/update-product-ajax/${selectedProductId}/`, {
+            method: "POST",
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            },
+            body: new FormData(document.querySelector('#updateProductForm')),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            document.getElementById("updateProductForm").reset();
+            hideUpdateModal();
+            showToast('Product updated successfully!', '', 'success');
+            document.dispatchEvent(new CustomEvent('productAdded'));
+        } else {
+            throw new Error(data.message || 'Failed to update product');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('Failed to update product: ' + error.message, '', 'error');
+    }
+    return false;
+  }
+
+  // Delete Product Entry
+  async function deleteProductEntry() {
+    try {
+        // Perbaiki URL - buat URL secara manual
+        const response = await fetch(`/delete-product-ajax/${selectedProductId}/`, {
+            method: "POST",
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            hideDeleteModal();
+            showToast('Product deleted successfully!', '', 'success');
+            document.dispatchEvent(new CustomEvent('productAdded'));
+        } else {
+            throw new Error(data.message || 'Failed to delete product');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('Failed to delete product: ' + error.message, '', 'error');
+    }
+    return false;
+  }
+
+  // Event Listeners
+  document.getElementById("updateProductForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    updateProductEntry();
+  });
+
+  document.getElementById("confirmDeleteBtn").addEventListener("click", function() {
+    deleteProductEntry();
+  });
+</script>

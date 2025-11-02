@@ -9,6 +9,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import datetime
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -95,6 +97,7 @@ def show_json_by_id(request, product_id):
             'thumbnail': product.thumbnail,
             'created_at': product.created_at.isoformat() if product.created_at else None,
             'is_featured': product.is_featured,
+            'price': product.price,
             'user_id': product.user_id,
             'user_username': product.user.username if product.user_id else None,
         }
@@ -152,3 +155,133 @@ def delete_product(request, id):
     product = get_object_or_404(Product, pk=id)
     product.delete()
     return HttpResponseRedirect(reverse('main:show_main'))
+
+@csrf_exempt
+@require_POST
+def add_product_entry_ajax(request):
+    name = request.POST.get("name")
+    description = request.POST.get("description")
+    category = request.POST.get("category")
+    price = request.POST.get("price")
+    thumbnail = request.POST.get("thumbnail")
+    is_featured = request.POST.get("is_featured") == 'on'  # checkbox handling
+    user = request.user
+
+    new_product = Product(
+        name=name, 
+        description=description,
+        price=price,
+        category=category,
+        thumbnail=thumbnail,
+        is_featured=is_featured,
+        user=user
+    )
+    new_product.save()
+
+    return HttpResponse(b"CREATED", status=201)
+
+def get_product_detail_json(request, id):
+    try:
+        product = Product.objects.get(pk=id, user=request.user)
+        return JsonResponse({
+            'id': product.id,
+            'name': product.name,
+            'price': product.price,
+            'description': product.description,
+            'category': product.category,
+        })
+    except Product.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Product not found'}, status=404)
+
+# Update Product via AJAX
+@csrf_exempt
+def update_product_ajax(request, id):
+    if request.method == 'POST':
+        try:
+            product = Product.objects.get(pk=id, user=request.user)
+            product.name = request.POST.get('name')
+            product.price = request.POST.get('price')
+            product.description = request.POST.get('description')
+            product.category = request.POST.get('category')
+            product.save()
+            return JsonResponse({'status': 'success'})
+        except Product.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Product not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+# Delete Product via AJAX
+@csrf_exempt
+def delete_product_ajax(request, id):
+    if request.method == 'POST':
+        try:
+            product = Product.objects.get(pk=id, user=request.user)
+            product.delete()
+            return JsonResponse({'status': 'success'})
+        except Product.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Product not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+# Login via AJAX
+@csrf_exempt
+def login_ajax(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return JsonResponse({
+                    'status': 'success',
+                    'message': 'Login successful',
+                    'redirect': '/main/'
+                })
+            else:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Account is disabled'
+                }, status=401)
+        else:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Invalid username or password'
+            }, status=401)
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+# Register via AJAX
+@csrf_exempt
+def register_ajax(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Registration successful'
+            })
+        else:
+            errors = []
+            for field, error_list in form.errors.items():
+                for error in error_list:
+                    errors.append(f"{field}: {error}")
+            return JsonResponse({
+                'status': 'error',
+                'message': '; '.join(errors)
+            }, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
+# Logout via AJAX
+@csrf_exempt
+def logout_ajax(request):
+    if request.method == 'POST':
+        logout(request)
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Logout successful'
+        })
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
