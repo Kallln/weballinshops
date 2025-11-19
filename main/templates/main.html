@@ -16,7 +16,7 @@
       <p class="text-gray-600">Stay updated with the latest football product</p>
     </div>
     <!-- Button to open modal -->
-    <button onclick="showModal()" class="inline-flex items-center px-4 py-2 bg-white text-green-600 font-semibold outline outline-2 outline-green-600 outline-offset-[-2px] rounded-md hover:bg-green-600 hover:text-white transition-colors mb-4">
+    <button onclick="showModal()" class="inline-flex items-center px-4 py-2 bg-white text-blue-600 font-semibold outline outline-2 outline-blue-600 outline-offset-[-2px] rounded-md hover:bg-blue-600 hover:text-white transition-colors mb-4">
       Create Product by AJAX
     </button>
     <div class="flex justify-between items-center mb-6">
@@ -128,6 +128,13 @@ function getReadableCategoryName(categoryCode) {
   return categoryMapping[categoryCode] || categoryCode;
 }
 
+function formatCurrency(value) {
+    if (value === null || value === undefined) return '-';
+    const n = Number(value);
+    if (Number.isNaN(n)) return String(value);
+    return 'Rp ' + n.toLocaleString('id-ID');
+  }
+
 // Create news card element
 function buildProductCardElement(productItem) {
   const articleElement = document.createElement('article');
@@ -161,6 +168,8 @@ function buildProductCardElement(productItem) {
       </div>`
     : '';
 
+  const author = ((productItem.user_username ?? '') + '').trim() || '-';
+
   const completeCardHtml = `
     <div class="aspect-[16/9] relative overflow-hidden">
       ${thumbnailHtml}
@@ -175,12 +184,14 @@ function buildProductCardElement(productItem) {
       <div class="flex items-center text-sm text-gray-500 mb-3">
         <time>${formattedDate}</time>
         <span class="mx-2">•</span>
-        <span>${productItem.price} views</span>
+        <span>${formatCurrency(productItem.price)}.00</span>
+
       </div>
       <h3 class="text-lg font-semibold text-gray-900 mb-3 line-clamp-2 leading-tight">
         <a href="${detailLink}" class="hover:text-green-600 transition-colors">${productItem.name}</a>
       </h3>
       <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 mb-4">${productItem.description}</p>
+      <p class="text-gray-400 text-sm leading-relaxed line-clamp-3 mb-4">author: ${author}</p>
       <div class="pt-4 border-t border-gray-100 flex items-center justify-between">
         <a href="${detailLink}" class="text-green-600 hover:text-green-700 font-medium text-sm transition-colors">Read more</a>
         ${editDeleteButtons}
@@ -219,26 +230,21 @@ function filterAndDisplayProduct() {
 
 // Fetch product data from server
 async function fetchProductFromServer() {
-  try {
-    displayPageSection({ showLoading: true });
-    
-    const response = await fetch(PRODUCT_API_ENDPOINT, {
-      headers: { 'Accept': 'application/json' },
-    });
+    try {
+      displayPageSection({ showLoading: true });
+      const response = await fetch(PRODUCT_API_ENDPOINT, { headers: { 'Accept': 'application/json' } });
+      if (!response.ok) throw new Error('Failed to fetch product data from server');
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch product data from server');
+      const productData = await response.json();
+      // Normalize to a unified shape so price, category, etc. exist
+      allProductData = productData || [];
+
+      filterAndDisplayProduct();
+    } catch (error) {
+      console.error('Error loading product:', error);
+      displayPageSection({ showError: true });
     }
-
-    const productData = await response.json();
-    allProductData = productData || [];
-    
-    filterAndDisplayProduct();
-  } catch (error) {
-    console.error('Error loading product:', error);
-    displayPageSection({ showError: true });
   }
-}
 
 // Event handlers
 function handleShowAllProductClick() {
